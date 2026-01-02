@@ -67,10 +67,23 @@ const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
         
         {/* Envelope Base */}
         <div className="relative bg-white shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] rounded-2xl overflow-hidden border border-[#e8d5cc] p-10 md:p-14 text-center">
+          
+          {/* LOGO WITH ENHANCED EFFECTS */}
           <div className="mb-6 flex justify-center">
-            <div className="w-20 h-20 bg-[#c9a68a] rounded-full flex items-center justify-center text-white shadow-inner relative">
-               <div className="absolute inset-2 border border-white/30 rounded-full"></div>
-               <span className="text-3xl font-serif tracking-tighter">T&T</span>
+            <div className="relative animate-float-slow">
+              {/* Outer Glow Pulse */}
+              <div className="absolute inset-0 bg-[#c9a68a] rounded-full blur-xl opacity-20 animate-pulse-slow"></div>
+              
+              <div className="w-20 h-20 bg-[#c9a68a] rounded-full flex items-center justify-center text-white shadow-2xl relative overflow-hidden group">
+                 {/* Inner Border */}
+                 <div className="absolute inset-1.5 border border-white/40 rounded-full z-10"></div>
+                 
+                 {/* Shine Sweep Effect */}
+                 <div className="absolute top-0 -left-[100%] w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-[-25deg] animate-shine"></div>
+                 
+                 {/* Logo Text */}
+                 <span className="text-3xl font-serif tracking-tighter relative z-20 drop-shadow-md">T&T</span>
+              </div>
             </div>
           </div>
           
@@ -107,6 +120,31 @@ const Envelope: React.FC<EnvelopeProps> = ({ onOpen }) => {
         <div className="absolute -top-6 -left-6 w-32 h-32 border-t-2 border-l-2 border-[#c9a68a] pointer-events-none opacity-40"></div>
         <div className="absolute -bottom-6 -right-6 w-32 h-32 border-b-2 border-r-2 border-[#c9a68a] pointer-events-none opacity-40"></div>
       </div>
+
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes shine {
+          0% { left: -100%; }
+          20% { left: 100%; }
+          100% { left: 100%; }
+        }
+        @keyframes float-slow {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-8px); }
+        }
+        @keyframes pulse-slow {
+          0%, 100% { transform: scale(1); opacity: 0.15; }
+          50% { transform: scale(1.3); opacity: 0.3; }
+        }
+        .animate-shine {
+          animation: shine 4s infinite ease-in-out;
+        }
+        .animate-float-slow {
+          animation: float-slow 4s infinite ease-in-out;
+        }
+        .animate-pulse-slow {
+          animation: pulse-slow 3s infinite ease-in-out;
+        }
+      `}} />
     </div>
   );
 };

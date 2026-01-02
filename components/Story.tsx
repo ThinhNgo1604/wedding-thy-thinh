@@ -18,8 +18,8 @@ const Story: React.FC = () => {
     {
       year: "2024",
       title: "Lời Cầu Hôn Dưới Ánh Sao Penang",
-      desc: "Trong một đêm lãng mạn tại đảo Penang, Malaysia - nơi những con phố cổ kính hòa cùng tiếng sóng biển rì rào, Thịnh đã quỳ xuống trao chiếc nhẫn ước hẹn. Dưới bầu trời đêm lấp lánh và hơi thở nồng nàn của biển cả, lời cầu hôn chân thành của anh đã nhận được cái gật đầu hạnh phúc từ Thy. Giây phút ấy, cả thế giới như ngừng lại, chỉ còn tình yêu của chúng mình tỏa sáng rực rỡ.",
-      img: "https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&q=80&w=1000"
+      desc: "Trong một đêm lãng mạn tại đảo Penang, Malaysia - nơi tiếng sóng biển rì rào, Thịnh đã quỳ xuống trao chiếc nhẫn ước hẹn. Dưới bầu trời đêm lấp lánh và hơi thở nồng nàn của biển cả, lời cầu hôn chân thành của anh đã nhận được cái gật đầu hạnh phúc từ Thy. Giây phút ấy, cả thế giới như ngừng lại, chỉ còn tình yêu của chúng mình tỏa sáng rực rỡ.",
+      img: "https://lh3.googleusercontent.com/pw/AP1GczPkO_zHUfYtbJE2KvbQuW4TOIT2xVl073Yvd72GKmH0SkfbaBofAPFI4jC4milosA9OKNj6v_0E3FhaLaA_Q-ICgLOwsZ4wAC25pvRlqkHUXg_aiVY99qpS5P88ygC0eZcVAJcl_oXz3CE0Awqc4EJ5oA=w2216-h1662-s-no-gm?authuser=0"
     }
   ];
 
