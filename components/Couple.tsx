@@ -19,7 +19,7 @@ const Couple: React.FC = () => {
               <div className="absolute -inset-4 border-2 border-[#c9a68a] rounded-full scale-95 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-700"></div>
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-2xl relative z-10">
                 <img 
-                  src="https://images.unsplash.com/photo-1550005814-266453966fb7?auto=format&fit=crop&q=80&w=800" 
+                  src="Image/first-meet.jpg"
                   alt={GROOM_NAME} 
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
