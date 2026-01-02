@@ -8,7 +8,7 @@ const Couple: React.FC = () => {
 
   // Cập nhật đường dẫn hình ảnh sang thư mục image/ (số ít)
   const groomImg = "https://lh3.googleusercontent.com/pw/AP1GczOzm_p6rkM5pS_RpjzyAbRkmclE0JddNNcorH-pCZ6sGmCinHe-xtU8wa2YjlI_yHA1-LmT2VM8GBbQZiMEYtpuhPXwc1ZIqoG-_xNhF2aGFJi2Jzdq5kIet6iC2aXP2GWNLwptQHeXDwIZHu4L1FVKTw=w1246-h1662-s-no-gm?authuser=0";
-  const brideImg = "https://lh3.googleusercontent.com/pw/AP1GczM33OHgoK41rYqJJuNauz5M9ETmrNS5XzIvzZBBwpz5YkOGSKI-bSvqOU5jQZ_u8wO2c2e92od5oZOLjs2ueTWEdoO2lCDWl8qGrJQQMcEppqoqezRx_CKrFaVnkDWmO29yXzFshUhcySUpi2BcwEs9kA=w934-h1662-s-no-gm?authuser=0";
+  const brideImg = "\https://photos.google.com/share/AF1QipP0wR9zqNq1YfpOxSQYNHPlRm0GtocDNXi_NhtUJI1aEyHU5UoEcYzptAIqh-KXzQ/photo/AF1QipNCXCtW9T9bJpce7NNqhUx9YDBRk88RDOTZbFy_?key=RlkzaHQtT3JpUHR5cklQTFFPS3g3ZTFDSHNvWDhR;
 
   const fallbackGroom = "https://images.unsplash.com/photo-1550005814-266453966fb7?auto=format&fit=crop&q=80&w=800";
   const fallbackBride = "https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&q=80&w=800";
