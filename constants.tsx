@@ -1,8 +1,8 @@
 
 import React from 'react';
 
-export const BRIDE_NAME = "Thy";
-export const GROOM_NAME = "Thịnh";
+export const BRIDE_NAME = "Thy Huỳnh";
+export const GROOM_NAME = "Thịnh Ngô";
 export const WEDDING_DATE = "2026-04-16"; // Định dạng YYYY-MM-DD để dễ tính countdown
 export const DISPLAY_DATE = "16.04.2026";
 export const WEDDING_TIME = "11:00 AM";
