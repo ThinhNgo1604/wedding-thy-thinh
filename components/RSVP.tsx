@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react';
-import { GoogleGenAI } from "@google/genai";
 import { GuestWish } from '../types';
 
 // THAY ĐỔI TẠI ĐÂY: Dán URL App Script bạn vừa nhận được vào đây
@@ -14,29 +13,7 @@ const RSVP: React.FC = () => {
     side: 'Nhà Trai',
     wish: ''
   });
-  const [isGenerating, setIsGenerating] = useState(false);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success'>('idle');
-
-  const handleGenerateWish = async () => {
-    if (!formData.name) {
-      alert("Vui lòng nhập tên của bạn trước nhé!");
-      return;
-    }
-    
-    setIsGenerating(true);
-    try {
-      const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-      const response = await ai.models.generateContent({
-        model: 'gemini-3-flash-preview',
-        contents: `Hãy viết 1 lời chúc đám cưới ngắn gọn, chân thành, vui vẻ bằng tiếng Việt cho cặp đôi Thy và Thịnh từ người bạn tên là ${formData.name}.`,
-      });
-      setFormData(prev => ({ ...prev, wish: response.text || '' }));
-    } catch (error) {
-      console.error("AI Error:", error);
-    } finally {
-      setIsGenerating(false);
-    }
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -165,19 +142,6 @@ const RSVP: React.FC = () => {
           <div>
             <div className="flex justify-between items-center mb-2">
               <label className="text-sm font-medium text-gray-700">Lời chúc dành cho cặp đôi</label>
-              <button 
-                type="button"
-                onClick={handleGenerateWish}
-                disabled={isGenerating}
-                className="text-xs text-[#c9a68a] hover:text-[#b88f6f] font-bold flex items-center gap-1 bg-[#fdf8f5] px-3 py-1 rounded-full border border-[#e8d5cc]"
-              >
-                {isGenerating ? (
-                    <div className="w-3 h-3 border-2 border-[#c9a68a] border-t-transparent rounded-full animate-spin"></div>
-                ) : (
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
-                )}
-                AI gợi ý lời chúc
-              </button>
             </div>
             <textarea 
               rows={4}
