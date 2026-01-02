@@ -5,12 +5,12 @@ const Gallery: React.FC = () => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
 
   const images = [
-    "https://picsum.photos/id/101/600/800",
-    "https://picsum.photos/id/102/600/400",
-    "https://picsum.photos/id/103/600/400",
-    "https://picsum.photos/id/104/600/800",
-    "https://picsum.photos/id/106/800/600",
-    "https://picsum.photos/id/107/400/600",
+    "https://lh3.googleusercontent.com/pw/AP1GczOs0hNN2M7cfWbgW6OF-lj0VvFc0mGfjqpl34eTYNO6G7tm2fbWQ_zmdbA1sAZ4hqfiYqdAZRm_-jBfhewrdmzN7proXSvfADj69WetkSguizR0ANH4znzSJXbPRDlrPpVZ5la85uOUyziBIFMV9UXRQA=w2212-h1662-s-no-gm?authuser=0",
+    "https://lh3.googleusercontent.com/pw/AP1GczNj4mXu04SrXs_CE6KPi9sU9rpm7cRl54LeDGLnrtj5tog_y2-fxrlYxjjwkk0SGAtcXXavskp7rvyxb24FvylRY_LnhwKsZak7mQMy3TYiw6wsZ4rvVODGdz-Og7fL1aLRyM2gBKzDepf7KW8ZrBCSDQ=w2216-h1662-s-no-gm?authuser=0",
+    "https://lh3.googleusercontent.com/pw/AP1GczPizWwAxCCvHfnifIJShHKA6X4yVZBiHsEseJtsthrG_kzz_C_xDmVokZuKS2AvRM_U1IXnkap89Az6Zxq_PaT8Lrxg775BVSpVT9E7YbMf8zyKdc4SqY2SnJSmG4_CdZ2WqJTtOrnF9cfzQxgPcWLjqQ=w2758-h1551-s-no-gm?authuser=0",
+    "https://lh3.googleusercontent.com/pw/AP1GczMRYO1VOC3Oh4zilumoWa-sHteHJbmWBodo_ZkOPDEERWMBhfdOTAUwW93mPnEJ3b8MkYB7Ua6WHQOwlf0Q-p5uXWJ8tUATbvooVdns6fDz2AXDMj9pHx11hGDneu0bLsttn56wJMEuWPBC7u6cmRdT1Q=w2216-h1662-s-no-gm?authuser=0",
+    "https://lh3.googleusercontent.com/pw/AP1GczMmejyzV02UioKDOStKidydnmyH-z_00x7juwSvEVUEl5RGyUUvyFZbfKmik8YlyTQfDNaFqVB8BT1kQbemEyH9Vhkiuyvs5IeG9ntO7aMTG2OcFVMlJcNhyVAy7lSUYRflO4Zzc5zPkMIUrKtT0pXuZA=w2216-h1662-s-no-gm?authuser=0",
+    "https://lh3.googleusercontent.com/pw/AP1GczPxdLTOP9btnQwQQfk5gaN2lqdljoDDAbABDXgYSJMo0-YGNxUWpkNPE95OD9sbmirMjXaHkqEddd0xrJBTK1CWXgHZM98DZRuKO7O-eGyq8bWXJN5Ab9WdLknUUQxcV_NtRMKwiuOPgv2_7sf_tPYFyw=w2940-h1654-s-no-gm?authuser=0",
   ];
 
   const openLightbox = (idx: number) => {
