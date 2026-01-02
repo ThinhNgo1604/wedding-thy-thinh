@@ -6,9 +6,9 @@ const Couple: React.FC = () => {
   const [groomImgError, setGroomImgError] = useState(false);
   const [brideImgError, setBrideImgError] = useState(false);
 
-  // Cập nhật đường dẫn hình ảnh sang thư mục image/ (số ít)
-  const groomImg = "https://lh3.googleusercontent.com/pw/AP1GczOzm_p6rkM5pS_RpjzyAbRkmclE0JddNNcorH-pCZ6sGmCinHe-xtU8wa2YjlI_yHA1-LmT2VM8GBbQZiMEYtpuhPXwc1ZIqoG-_xNhF2aGFJi2Jzdq5kIet6iC2aXP2GWNLwptQHeXDwIZHu4L1FVKTw=w1246-h1662-s-no-gm?authuser=0";
-  const brideImg = "\https://photos.google.com/share/AF1QipP0wR9zqNq1YfpOxSQYNHPlRm0GtocDNXi_NhtUJI1aEyHU5UoEcYzptAIqh-KXzQ/photo/AF1QipNCXCtW9T9bJpce7NNqhUx9YDBRk88RDOTZbFy_?key=RlkzaHQtT3JpUHR5cklQTFFPS3g3ZTFDSHNvWDhR;
+  // ĐÃ SỬA: Bỏ dấu "/" ở đầu để dùng đường dẫn tương đối từ folder image/
+  const groomImg = "image/groom.jpg";
+  const brideImg = "image/bride.jpg";
 
   const fallbackGroom = "https://images.unsplash.com/photo-1550005814-266453966fb7?auto=format&fit=crop&q=80&w=800";
   const fallbackBride = "https://images.unsplash.com/photo-1549416878-b9ca35c2d47b?auto=format&fit=crop&q=80&w=800";
@@ -51,7 +51,7 @@ const Couple: React.FC = () => {
             </div>
             <h3 className="text-4xl font-cursive text-[#b04a5a] mb-2">{GROOM_NAME}</h3>
             <p className="text-gray-600 font-serif italic text-lg border-t border-[#e8d5cc] pt-4 mt-2 px-6 text-center">
-              là chàng trai lịch thiệp
+              Chú rể với sự lịch thiệp và tình yêu sâu sắc luôn dành cho cô dâu.
             </p>
           </div>
 
@@ -83,7 +83,7 @@ const Couple: React.FC = () => {
             </div>
             <h3 className="text-4xl font-cursive text-[#b04a5a] mb-2">{BRIDE_NAME}</h3>
             <p className="text-gray-600 font-serif italic text-lg border-t border-[#e8d5cc] pt-4 mt-2 px-6 text-center">
-              là cô gái xinh đẹp
+              Cô dâu xinh đẹp, dễ thương, là điều ngọt ngào nhất mà anh tìm thấy trong cuộc đời mình.
             </p>
           </div>
         </div>
