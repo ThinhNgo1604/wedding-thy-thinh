@@ -43,6 +43,10 @@ const Countdown: React.FC = () => {
 };
 
 const Hero: React.FC = () => {
+  // ĐƯỜNG DẪN ẢNH NỀN CHÍNH Ở ĐÂY
+  const heroBgImage = "https://lh3.googleusercontent.com/pw/AP1GczNj4mXu04SrXs_CE6KPi9sU9rpm7cRl54LeDGLnrtj5tog_y2-fxrlYxjjwkk0SGAtcXXavskp7rvyxb24FvylRY_LnhwKsZak7mQMy3TYiw6wsZ4rvVODGdz-Og7fL1aLRyM2gBKzDepf7KW8ZrBCSDQ=w2216-h1662-s-no-gm?authuser=0"; 
+  const fallbackBg = "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1920";
+
   const handleScrollToRSVP = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const element = document.getElementById('rsvp');
@@ -56,15 +60,15 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image */}
+      {/* Background Image Container */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10000ms] hover:scale-110"
-        style={{ backgroundImage: `url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1920')` }}
+        style={{ backgroundImage: `url('${heroBgImage}'), url('${fallbackBg}')` }}
       >
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
       </div>
 
-      {/* Floating Petals Effect (CSS Only) */}
+      {/* Floating Petals Effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {[...Array(12)].map((_, i) => (
           <div key={i} className={`petal petal-${i + 1}`}></div>
