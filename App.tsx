@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   // Đường dẫn file nhạc nằm cùng cấp với index.html
   const musicSources = [
-    "./wedding-music.mp3"
+    "music/wedding-music.mp3"
   ];
 
   const currentMusicUrl = musicSources[musicSourceIndex];
