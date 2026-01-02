@@ -1,0 +1,7 @@
+{
+  "name": "Đám Cưới Thịnh & Thy",
+  "description": "Một trang web thiệp mời đám cưới lãng mạn và tinh tế dành cho cặp đôi Thy và Thịnh, với hiệu ứng mở thiệp độc đáo.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
