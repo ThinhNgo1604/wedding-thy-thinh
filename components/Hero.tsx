@@ -43,8 +43,11 @@ const Countdown: React.FC = () => {
 };
 
 const Hero: React.FC = () => {
-  // ĐƯỜNG DẪN ẢNH NỀN CHÍNH Ở ĐÂY
-  const heroBgImage = "https://lh3.googleusercontent.com/pw/AP1GczNj4mXu04SrXs_CE6KPi9sU9rpm7cRl54LeDGLnrtj5tog_y2-fxrlYxjjwkk0SGAtcXXavskp7rvyxb24FvylRY_LnhwKsZak7mQMy3TYiw6wsZ4rvVODGdz-Og7fL1aLRyM2gBKzDepf7KW8ZrBCSDQ=w2216-h1662-s-no-gm?authuser=0"; 
+  // ĐƯỜNG DẪN ẢNH NỀN Ở ĐÂY
+  const heroBgDesktop = "https://lh3.googleusercontent.com/pw/AP1GczNj4mXu04SrXs_CE6KPi9sU9rpm7cRl54LeDGLnrtj5tog_y2-fxrlYxjjwkk0SGAtcXXavskp7rvyxb24FvylRY_LnhwKsZak7mQMy3TYiw6wsZ4rvVODGdz-Og7fL1aLRyM2gBKzDepf7KW8ZrBCSDQ=w2216-h1662-s-no-gm?authuser=0"; // Ảnh cho máy tính (Ngang)
+  const heroBgMobile = "https://lh3.googleusercontent.com/pw/AP1GczMm_UP5TSrFO60MH0J5N4T0Cd-djVAVpSCjq_T1JypG28-pMqZTuCqQHWQ_Q6u2bQDNuwvl0cocE2h2hwv-Rx9D1jcryIzfQ7CFJ5-lBcvfWheNgRAZKIc-77ATKBErmCOxnkcX-yGUYdrzB2z3FdmFaA=w1246-h1662-s-no-gm?authuser=0";   // Ảnh cho điện thoại (Dọc)
+  
+  // Fallback nếu không tìm thấy file
   const fallbackBg = "https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&q=80&w=1920";
 
   const handleScrollToRSVP = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -60,12 +63,21 @@ const Hero: React.FC = () => {
 
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image Container */}
+      
+      {/* Background for Desktop */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10000ms] hover:scale-110"
-        style={{ backgroundImage: `url('${heroBgImage}'), url('${fallbackBg}')` }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10000ms] hover:scale-110 hidden md:block"
+        style={{ backgroundImage: `url('${heroBgDesktop}'), url('${fallbackBg}')` }}
       >
         <div className="absolute inset-0 bg-black/40 backdrop-blur-[1px]"></div>
+      </div>
+
+      {/* Background for Mobile */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-transform duration-[10000ms] md:hidden"
+        style={{ backgroundImage: `url('${heroBgMobile}'), url('${heroBgDesktop}'), url('${fallbackBg}')` }}
+      >
+        <div className="absolute inset-0 bg-black/45 backdrop-blur-[1px]"></div>
       </div>
 
       {/* Floating Petals Effect */}
