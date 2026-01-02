@@ -24,7 +24,7 @@ const App: React.FC = () => {
 
   // Đường dẫn file nhạc nằm cùng cấp với index.html
   const musicSources = [
-    "/music/wedding-music.mp3"
+    "https://res.cloudinary.com/dklced9dg/video/upload/v1767370423/wedding-music_gihg4k.mp3"
   ];
 
   const currentMusicUrl = musicSources[musicSourceIndex];
