@@ -10,13 +10,19 @@ const Story: React.FC = () => {
       img: "https://lh3.googleusercontent.com/pw/AP1GczOs0hNN2M7cfWbgW6OF-lj0VvFc0mGfjqpl34eTYNO6G7tm2fbWQ_zmdbA1sAZ4hqfiYqdAZRm_-jBfhewrdmzN7proXSvfADj69WetkSguizR0ANH4znzSJXbPRDlrPpVZ5la85uOUyziBIFMV9UXRQA=w2212-h1662-s-no-gm?authuser=0"
     },
     {
-      year: "2022",
+      year: "2020",
       title: "Lời Tỏ Tình Ngọt Ngào",
       desc: "Dưới những tán hoa hồng rực rỡ, Thịnh đã lấy hết can đảm để nói lời yêu với Thy. Giữa hương hoa và ánh mắt lấp lánh niềm vui, chúng mình đã hứa sẽ cùng nhau đi qua mọi mùa hoa của cuộc đời. Đó là khoảnh khắc hai trái tim chính thức thuộc về nhau.",
       img: "https://lh3.googleusercontent.com/pw/AP1GczMH0ddfLs0O9TEb29vUrvdO2lII2wDfcAWIncdRK7njTscMFlBWModA8mFxpOgQcx0Yp2IEd_CDnCVEegKZow6AUEf4X1ZDi3vS7Q81httsiv5PuHTRJIDGZwOsW9OUFPeY9bgNwnB_dkWEPfojxDtOaA=w1248-h1662-s-no-gm?authuser=0"
     },
     {
-      year: "2024",
+      year: "2022 - 2025",
+      title: "Bắt Đầu Yêu Xa",
+      desc: "Khoảng cách địa lý không thể làm phai nhòa tình cảm. Cô dâu và chú rể đã trải qua 3 năm bên nhau và họ cũng đã đến được với nhau. Những cuộc gọi xuyên đêm, những nỗi nhớ đong đầy qua màn hình điện thoại đã tôi luyện nên một tình yêu bền chặt, sẵn sàng cho một chương mới hạnh phúc hơn.",
+      img: "https://lh3.googleusercontent.com/pw/AP1GczMRYO1VOC3Oh4zilumoWa-sHteHJbmWBodo_ZkOPDEERWMBhfdOTAUwW93mPnEJ3b8MkYB7Ua6WHQOwlf0Q-p5uXWJ8tUATbvooVdns6fDz2AXDMj9pHx11hGDneu0bLsttn56wJMEuWPBC7u6cmRdT1Q=w2216-h1662-s-no-gm?authuser=0"
+    },
+    {
+      year: "2025",
       title: "Lời Cầu Hôn Dưới Ánh Sao Penang",
       desc: "Trong một đêm lãng mạn tại đảo Penang, Malaysia - nơi tiếng sóng biển rì rào, Thịnh đã quỳ xuống trao chiếc nhẫn ước hẹn. Dưới bầu trời đêm lấp lánh và hơi thở nồng nàn của biển cả, lời cầu hôn chân thành của anh đã nhận được cái gật đầu hạnh phúc từ Thy. Giây phút ấy, cả thế giới như ngừng lại, chỉ còn tình yêu của chúng mình tỏa sáng rực rỡ.",
       img: "https://lh3.googleusercontent.com/pw/AP1GczPkO_zHUfYtbJE2KvbQuW4TOIT2xVl073Yvd72GKmH0SkfbaBofAPFI4jC4milosA9OKNj6v_0E3FhaLaA_Q-ICgLOwsZ4wAC25pvRlqkHUXg_aiVY99qpS5P88ygC0eZcVAJcl_oXz3CE0Awqc4EJ5oA=w2216-h1662-s-no-gm?authuser=0"
