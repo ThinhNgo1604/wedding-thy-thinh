@@ -37,6 +37,9 @@ const Footer: React.FC<FooterProps> = ({ isAudioPlaying, onToggleAudio }) => {
 
         <p className="text-gray-500 font-serif italic mb-2">"Hạnh phúc là khi được cùng nhau già đi"</p>
         <p className="text-gray-400 text-sm">© 2026 Wedding Invitation. All rights reserved.</p>
+        <span style="font-size:11px; opacity:0.4;">
+          by T.Corny
+        </span>
       </div>
     </footer>
   );
