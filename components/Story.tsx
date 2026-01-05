@@ -1,5 +1,64 @@
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+
+const StoryItem: React.FC<{ item: any, index: number }> = ({ item, index }) => {
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-active');
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    if (itemRef.current) {
+      observer.observe(itemRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div 
+      ref={itemRef}
+      className={`flex flex-col md:flex-row items-center mb-24 last:mb-0 opacity-0 translate-y-10 transition-all duration-700 ease-out reveal-item ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}
+    >
+      {/* Image Side */}
+      <div className="w-full md:w-1/2 px-4 md:px-12 mb-8 md:mb-0">
+        <div className="relative group">
+          <div className="absolute -inset-2 bg-[#f7ebe4] rounded-2xl transform rotate-3 transition-transform group-hover:rotate-0"></div>
+          <div className="relative overflow-hidden rounded-xl shadow-2xl aspect-[4/3]">
+            <img 
+              src={item.img} 
+              alt={item.title} 
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+      
+      {/* Center Dot */}
+      <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#c9a68a] rounded-full hidden md:block z-10 border-4 border-white shadow-sm"></div>
+
+      {/* Text Side */}
+      <div className="w-full md:w-1/2 px-4 md:px-12 text-center md:text-left">
+        <div className={`inline-block px-6 py-1 bg-[#fdf8f5] text-[#c9a68a] rounded-full text-sm font-bold mb-4 border border-[#e8d5cc] ${index % 2 !== 0 ? 'md:ml-auto' : ''}`}>
+          Năm {item.year}
+        </div>
+        <h3 className="text-2xl md:text-3xl font-serif text-gray-800 mb-6">{item.title}</h3>
+        <p className="text-gray-600 leading-relaxed italic text-lg font-serif">
+           "{item.desc}"
+        </p>
+      </div>
+    </div>
+  );
+};
 
 const Story: React.FC = () => {
   const milestones = [
@@ -43,39 +102,16 @@ const Story: React.FC = () => {
           <div className="absolute left-1/2 -translate-x-1/2 h-full w-px bg-[#e8d5cc] hidden md:block"></div>
 
           {milestones.map((item, index) => (
-            <div key={index} className={`flex flex-col md:flex-row items-center mb-24 last:mb-0 ${index % 2 !== 0 ? 'md:flex-row-reverse' : ''}`}>
-              {/* Image Side */}
-              <div className="w-full md:w-1/2 px-4 md:px-12 mb-8 md:mb-0">
-                <div className="relative group">
-                  <div className="absolute -inset-2 bg-[#f7ebe4] rounded-2xl transform rotate-3 transition-transform group-hover:rotate-0"></div>
-                  <div className="relative overflow-hidden rounded-xl shadow-2xl aspect-[4/3]">
-                    <img 
-                      src={item.img} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
-              </div>
-              
-              {/* Center Dot */}
-              <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-[#c9a68a] rounded-full hidden md:block z-10 border-4 border-white shadow-sm"></div>
-
-              {/* Text Side */}
-              <div className="w-full md:w-1/2 px-4 md:px-12 text-center md:text-left">
-                <div className={`inline-block px-6 py-1 bg-[#fdf8f5] text-[#c9a68a] rounded-full text-sm font-bold mb-4 border border-[#e8d5cc] ${index % 2 !== 0 ? 'md:ml-auto' : ''}`}>
-                  Năm {item.year}
-                </div>
-                <h3 className="text-2xl md:text-3xl font-serif text-gray-800 mb-6">{item.title}</h3>
-                <p className="text-gray-600 leading-relaxed italic text-lg font-serif">
-                   "{item.desc}"
-                </p>
-              </div>
-            </div>
+            <StoryItem key={index} item={item} index={index} />
           ))}
         </div>
       </div>
+      <style dangerouslySetInnerHTML={{ __html: `
+        .reveal-item.reveal-active {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      `}} />
     </section>
   );
 };

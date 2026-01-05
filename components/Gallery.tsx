@@ -1,8 +1,10 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Gallery: React.FC = () => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
 
   const images = [
     "https://lh3.googleusercontent.com/pw/AP1GczOs0hNN2M7cfWbgW6OF-lj0VvFc0mGfjqpl34eTYNO6G7tm2fbWQ_zmdbA1sAZ4hqfiYqdAZRm_-jBfhewrdmzN7proXSvfADj69WetkSguizR0ANH4znzSJXbPRDlrPpVZ5la85uOUyziBIFMV9UXRQA=w2212-h1662-s-no-gm?authuser=0",
@@ -12,6 +14,23 @@ const Gallery: React.FC = () => {
     "https://lh3.googleusercontent.com/pw/AP1GczMmejyzV02UioKDOStKidydnmyH-z_00x7juwSvEVUEl5RGyUUvyFZbfKmik8YlyTQfDNaFqVB8BT1kQbemEyH9Vhkiuyvs5IeG9ntO7aMTG2OcFVMlJcNhyVAy7lSUYRflO4Zzc5zPkMIUrKtT0pXuZA=w2216-h1662-s-no-gm?authuser=0",
     "https://lh3.googleusercontent.com/pw/AP1GczPxdLTOP9btnQwQQfk5gaN2lqdljoDDAbABDXgYSJMo0-YGNxUWpkNPE95OD9sbmirMjXaHkqEddd0xrJBTK1CWXgHZM98DZRuKO7O-eGyq8bWXJN5Ab9WdLknUUQxcV_NtRMKwiuOPgv2_7sf_tPYFyw=w2940-h1654-s-no-gm?authuser=0",
   ];
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const openLightbox = (idx: number) => {
     setSelectedIdx(idx);
@@ -49,9 +68,9 @@ const Gallery: React.FC = () => {
   }, [selectedIdx]);
 
   return (
-    <section id="gallery" className="py-20 bg-white">
+    <section id="gallery" ref={sectionRef} className="py-20 bg-white">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <div className={`text-center mb-16 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <h2 className="text-4xl font-cursive text-[#b04a5a] mb-2">Album Hình Cưới</h2>
           <p className="text-gray-500 font-serif italic">Những khoảnh khắc hạnh phúc</p>
           <div className="w-20 h-1 bg-[#c9a68a] mx-auto mt-4"></div>
@@ -61,7 +80,12 @@ const Gallery: React.FC = () => {
           {images.map((src, idx) => (
             <div 
               key={idx} 
-              className="group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1"
+              className={`group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 transform ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}`}
+              style={{ 
+                // Sử dụng idx * 500ms để mỗi tấm hình hiện ra cách nhau đúng 0.5 giây
+                transitionDelay: isVisible ? `${idx * 500}ms` : '0ms',
+                transitionDuration: '500ms'
+              }}
               onClick={() => openLightbox(idx)}
             >
               <img 
