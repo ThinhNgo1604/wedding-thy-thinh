@@ -1,9 +1,8 @@
 
 import React, { useState } from 'react';
 import { GuestWish } from '../types';
+import { GOOGLE_SHEET_URL } from '../constants';
 
-// THAY ĐỔI TẠI ĐÂY: Dán URL App Script bạn vừa nhận được vào đây
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzlPP2TGUzxQgort3hq-pGHG2FftgmSVKrSRi_uVN_5d5PkVBU8FulIT7_qdr1mjSne3g/exec';
 const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -19,7 +18,7 @@ const RSVP: React.FC = () => {
     setStatus('loading');
 
     try {
-      
+      // 1. Gửi lên Google Sheet
       await fetch(GOOGLE_SHEET_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -35,18 +34,11 @@ const RSVP: React.FC = () => {
         }),
       });
 
-      // 2. Đồng thời lưu vào LocalStorage để hiển thị Lời chúc ngay trên web
-      const newWish: GuestWish = {
-        name: formData.name,
-        message: formData.wish || "Chúc mừng hai bạn trăm năm hạnh phúc!",
-        timestamp: Date.now()
-      };
-
-      const existingWishes = JSON.parse(localStorage.getItem('wedding_wishes') || '[]');
-      localStorage.setItem('wedding_wishes', JSON.stringify([...existingWishes, newWish]));
-      
-      // Kích hoạt cập nhật Guestbook
-      window.dispatchEvent(new Event('wish_updated'));
+      // 2. Kích hoạt cập nhật Guestbook bằng cách phát một sự kiện
+      // (Chúng ta sẽ không lưu LocalStorage nữa vì Guestbook sẽ lấy từ Server)
+      setTimeout(() => {
+        window.dispatchEvent(new Event('wish_updated'));
+      }, 1000);
       
       setStatus('success');
     } catch (error) {
@@ -60,17 +52,17 @@ const RSVP: React.FC = () => {
     return (
       <section id="rsvp" className="py-20 bg-[#f7ebe4]">
         <div className="container mx-auto px-4 max-w-xl text-center">
-          <div className="bg-white p-12 rounded-3xl shadow-xl animate-zoomIn">
+          <div className="bg-white p-12 rounded-3xl shadow-xl animate-zoomIn border border-[#e8d5cc]">
             <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
               <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
               </svg>
             </div>
             <h2 className="text-3xl font-serif text-gray-800 mb-4">Cảm ơn {formData.name}!</h2>
-            <p className="text-gray-600 mb-8">Chúng mình đã nhận được xác nhận tham dự và lời chúc từ bạn. Dữ liệu đã được lưu vào danh sách khách mời!</p>
+            <p className="text-gray-600 mb-8 font-serif italic">Lời chúc của bạn đã được gửi đi và sẽ hiển thị sớm trong danh sách lời chúc toàn cầu.</p>
             <button 
               onClick={() => setStatus('idle')}
-              className="text-[#c9a68a] font-bold hover:underline"
+              className="px-8 py-3 bg-[#b04a5a] text-white rounded-full font-bold uppercase text-xs tracking-widest hover:bg-[#9a3d4c] transition-all"
             >
               Gửi thêm lời chúc khác
             </button>
@@ -85,29 +77,29 @@ const RSVP: React.FC = () => {
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-cursive text-[#b04a5a] mb-2">Xác Nhận Tham Dự</h2>
-          <p className="text-gray-500 font-serif italic">Thông tin của bạn sẽ được gửi thẳng tới Google Sheet của cặp đôi</p>
-          <div className="w-20 h-1 bg-[#c9a68a] mx-auto mt-4"></div>
+          <p className="text-gray-500 font-serif italic uppercase text-[10px] tracking-[0.2em]">R.S.V.P</p>
+          <div className="w-20 h-px bg-[#c9a68a] mx-auto mt-4"></div>
         </div>
 
-        <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-3xl shadow-xl space-y-6">
+        <form onSubmit={handleSubmit} className="bg-white p-8 md:p-12 rounded-3xl shadow-xl space-y-6 border border-[#e8d5cc]">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Họ & Tên *</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Họ & Tên *</label>
               <input 
                 type="text" 
                 required
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all"
+                className="w-full px-4 py-3 bg-[#fdf8f5] border border-gray-100 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all font-serif"
                 placeholder="Ví dụ: Nguyễn Văn A"
                 value={formData.name}
                 onChange={(e) => setFormData({...formData, name: e.target.value})}
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Số điện thoại</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Số điện thoại</label>
               <input 
                 type="tel" 
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all"
-                placeholder="Để chúng mình tiện liên lạc"
+                className="w-full px-4 py-3 bg-[#fdf8f5] border border-gray-100 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all font-serif"
+                placeholder="09xx xxx xxx"
                 value={formData.phone}
                 onChange={(e) => setFormData({...formData, phone: e.target.value})}
               />
@@ -116,9 +108,9 @@ const RSVP: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Số lượng khách</label>
+              <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Số lượng khách</label>
               <select 
-                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all"
+                className="w-full px-4 py-3 bg-[#fdf8f5] border border-gray-100 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all font-serif appearance-none"
                 value={formData.guests}
                 onChange={(e) => setFormData({...formData, guests: e.target.value})}
               >
@@ -126,14 +118,14 @@ const RSVP: React.FC = () => {
               </select>
             </div>
             <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Bạn là khách của</label>
+                <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Bạn là khách của</label>
                 <div className="flex gap-2">
                 {['Nhà Trai', 'Nhà Gái'].map(s => (
                     <button
                     key={s}
                     type="button"
                     onClick={() => setFormData({...formData, side: s})}
-                    className={`flex-1 py-3 rounded-xl border text-sm transition-all ${formData.side === s ? 'bg-[#c9a68a] text-white border-[#c9a68a]' : 'bg-white text-gray-600 border-gray-200'}`}
+                    className={`flex-1 py-3 rounded-xl border text-[10px] font-bold uppercase tracking-widest transition-all ${formData.side === s ? 'bg-[#c9a68a] text-white border-[#c9a68a]' : 'bg-white text-gray-400 border-gray-100'}`}
                     >
                     {s}
                     </button>
@@ -143,13 +135,11 @@ const RSVP: React.FC = () => {
           </div>
 
           <div>
-            <div className="flex justify-between items-center mb-2">
-              <label className="text-sm font-medium text-gray-700">Lời chúc dành cho cặp đôi</label>
-            </div>
+            <label className="block text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-2">Lời chúc dành cho cặp đôi</label>
             <textarea 
               rows={4}
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all resize-none"
-              placeholder="Nhập lời nhắn gửi của bạn..."
+              className="w-full px-4 py-3 bg-[#fdf8f5] border border-gray-100 rounded-xl focus:ring-2 focus:ring-[#c9a68a] outline-none transition-all resize-none font-serif italic"
+              placeholder="Nhập lời nhắn gửi yêu thương..."
               value={formData.wish}
               onChange={(e) => setFormData({...formData, wish: e.target.value})}
             />
@@ -158,9 +148,9 @@ const RSVP: React.FC = () => {
           <button 
             type="submit"
             disabled={status === 'loading'}
-            className="w-full py-4 bg-[#b04a5a] text-white rounded-xl font-bold uppercase tracking-widest hover:bg-[#9a3d4c] transition-all shadow-lg active:scale-95 disabled:opacity-50"
+            className="w-full py-4 bg-[#b04a5a] text-white rounded-xl font-bold uppercase tracking-[0.2em] hover:bg-[#9a3d4c] transition-all shadow-lg active:scale-95 disabled:opacity-50 text-sm"
           >
-            {status === 'loading' ? 'Đang xử lý...' : 'Gửi Xác Nhận'}
+            {status === 'loading' ? 'Đang gửi thông tin...' : 'Xác Nhận Tham Dự'}
           </button>
         </form>
       </div>
