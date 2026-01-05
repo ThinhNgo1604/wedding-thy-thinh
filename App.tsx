@@ -23,8 +23,7 @@ const App: React.FC = () => {
 
   // Đường dẫn file nhạc - Đảm bảo thư mục music/ nằm cùng cấp với index.html
   // Đã xóa dấu / ở đầu để trình duyệt tìm kiếm tương đối từ vị trí file chạy
-  // Nhạc: a thousand miles 
-  const musicUrl = "https://res.cloudinary.com/dklced9dg/video/upload/v1767622581/Vanessa_Carlton_-_A_Thousand_Miles_qx8mzh.mp3";
+  const musicUrl = 'https://res.cloudinary.com/dklced9dg/video/upload/v1767622581/Vanessa_Carlton_-_A_Thousand_Miles_qx8mzh.mp3';
   
 
   useEffect(() => {
