@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import { GuestWish } from '../types';
 
 // THAY ĐỔI TẠI ĐÂY: Dán URL App Script bạn vừa nhận được vào đây
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycby_YOUR_SCRIPT_ID/exec';
-
+const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzlPP2TGUzxQgort3hq-pGHG2FftgmSVKrSRi_uVN_5d5PkVBU8FulIT7_qdr1mjSne3g/exec';
 const RSVP: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
@@ -20,17 +19,21 @@ const RSVP: React.FC = () => {
     setStatus('loading');
 
     try {
-      // 1. Gửi dữ liệu đến Google Sheets (nếu đã có URL)
-      if (GOOGLE_SHEET_URL.includes('macros/s/')) {
-        await fetch(GOOGLE_SHEET_URL, {
-          method: 'POST',
-          mode: 'no-cors', // Dùng no-cors để tránh lỗi chính sách trình duyệt với Apps Script
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-      }
+      
+      await fetch(GOOGLE_SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          phone: formData.phone,
+          guests: formData.guests,
+          side: formData.side,
+          wish: formData.wish,
+        }),
+      });
 
       // 2. Đồng thời lưu vào LocalStorage để hiển thị Lời chúc ngay trên web
       const newWish: GuestWish = {

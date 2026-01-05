@@ -50,7 +50,8 @@ const Navbar: React.FC = () => {
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'}`}>
+      {/* Thêm hidden md:block để ẩn trên mobile và hiện trên desktop */}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 hidden md:block ${isScrolled || isMenuOpen ? 'bg-white/95 backdrop-blur-md shadow-md py-4' : 'bg-transparent py-6'}`}>
         <div className="container mx-auto px-4 flex justify-between items-center">
           <a 
             href="#"
@@ -74,7 +75,7 @@ const Navbar: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile Menu Toggle Button */}
+          {/* Mobile Menu Toggle Button (Vẫn giữ code cũ nhưng nav cha đã bị hidden md:block nên nút này cũng sẽ ẩn) */}
           <button 
             className="md:hidden z-50 flex flex-col gap-1.5 cursor-pointer p-2"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -87,7 +88,7 @@ const Navbar: React.FC = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay - Cũng sẽ không thể mở được vì nút kích hoạt nằm trong nav đã ẩn */}
       <div className={`fixed inset-0 z-40 bg-white transition-all duration-500 ease-in-out transform md:hidden ${isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}`}>
         <div className="flex flex-col items-center justify-center h-full gap-8 px-4">
           {menuItems.map((item, idx) => (
