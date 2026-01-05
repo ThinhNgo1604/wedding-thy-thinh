@@ -7,7 +7,7 @@ export const WEDDING_DATE = "2026-04-16"; // Định dạng YYYY-MM-DD để d�
 export const DISPLAY_DATE = "16.04.2026";
 export const WEDDING_TIME = "11:00 AM";
 export const WEDDING_LOCATION = "Riverside Palace";
-export const WEDDING_ADDRESS = "360D Bến Vân Đồn, Phường Vĩnh Hội, Quận 4, Thành phố Hồ Chí Minh, Việt Nam";
+export const WEDDING_ADDRESS = "360D Bến Vân Đồn, Phường 1, Quận 4, TP. Hồ Chí Minh";
 
 export const HeartIcon = ({ className = "w-6 h-6" }: { className?: string }) => (
   <svg className={className} fill="currentColor" viewBox="0 0 24 24">
