@@ -3,11 +3,11 @@ import React from 'react';
 
 export const BRIDE_NAME = "Thy Huỳnh";
 export const GROOM_NAME = "Thịnh Ngô";
-export const WEDDING_DATE = "2026-04-16"; // Định dạng YYYY-MM-DD để dễ tính countdown
-export const DISPLAY_DATE = "16.04.2026";
+export const WEDDING_DATE = "2027-04-16"; // Định dạng YYYY-MM-DD để dễ tính countdown
+export const DISPLAY_DATE = "16.04.2027";
 export const WEDDING_TIME = "11:00 AM";
 export const WEDDING_LOCATION = "Riverside Palace";
-export const WEDDING_ADDRESS = "360D Bến Vân Đồn, Phường 1, Quận 4, TP. Hồ Chí Minh";
+export const WEDDING_ADDRESS = "360D Bến Vân Đồn, Phường 1, Quận 4, Thành phố Hồ Chí Minh, Việt Nam";
 
 // URL Google Sheet dùng chung cho toàn ứng dụng
 export const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzlPP2TGUzxQgort3hq-pGHG2FftgmSVKrSRi_uVN_5d5PkVBU8FulIT7_qdr1mjSne3g/exec';
