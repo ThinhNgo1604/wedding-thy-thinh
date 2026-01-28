@@ -1,10 +1,68 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
+interface GalleryItemProps {
+  src: string;
+  idx: number;
+  onClick: () => void;
+}
+
+const GalleryItem: React.FC<GalleryItemProps> = ({ src, idx, onClick }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const itemRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { 
+        threshold: 0.2, // Hiện ra khi thấy 20% tấm ảnh
+        rootMargin: '0px 0px -50px 0px' // Kích hoạt sớm một chút trước khi vào hẳn khung hình
+      }
+    );
+
+    if (itemRef.current) {
+      observer.observe(itemRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div 
+      ref={itemRef}
+      className={`group relative overflow-hidden rounded-xl md:rounded-2xl aspect-square md:aspect-[3/4] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 transform 
+        ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-16 scale-90'}`}
+      style={{ 
+        // Độ trễ 0.5s giữa các ảnh trong cùng một đợt hiển thị
+        transitionDelay: isVisible ? `${(idx % 2) * 500}ms` : '0ms'
+      }}
+      onClick={onClick}
+    >
+      <img 
+        src={src} 
+        alt={`Gallery ${idx}`} 
+        className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
+        loading="lazy"
+      />
+      
+      {/* Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+        <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out hidden md:block">
+          <span className="text-white border border-white/80 px-6 py-2 rounded-full uppercase text-[10px] tracking-[0.2em] font-medium backdrop-blur-[2px]">
+            Xem ảnh
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Gallery: React.FC = () => {
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
 
   const images = [
     "https://lh3.googleusercontent.com/pw/AP1GczOs0hNN2M7cfWbgW6OF-lj0VvFc0mGfjqpl34eTYNO6G7tm2fbWQ_zmdbA1sAZ4hqfiYqdAZRm_-jBfhewrdmzN7proXSvfADj69WetkSguizR0ANH4znzSJXbPRDlrPpVZ5la85uOUyziBIFMV9UXRQA=w2212-h1662-s-no-gm?authuser=0",
@@ -14,23 +72,6 @@ const Gallery: React.FC = () => {
     "https://lh3.googleusercontent.com/pw/AP1GczMmejyzV02UioKDOStKidydnmyH-z_00x7juwSvEVUEl5RGyUUvyFZbfKmik8YlyTQfDNaFqVB8BT1kQbemEyH9Vhkiuyvs5IeG9ntO7aMTG2OcFVMlJcNhyVAy7lSUYRflO4Zzc5zPkMIUrKtT0pXuZA=w2216-h1662-s-no-gm?authuser=0",
     "https://lh3.googleusercontent.com/pw/AP1GczPxdLTOP9btnQwQQfk5gaN2lqdljoDDAbABDXgYSJMo0-YGNxUWpkNPE95OD9sbmirMjXaHkqEddd0xrJBTK1CWXgHZM98DZRuKO7O-eGyq8bWXJN5Ab9WdLknUUQxcV_NtRMKwiuOPgv2_7sf_tPYFyw=w2940-h1654-s-no-gm?authuser=0",
   ];
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const openLightbox = (idx: number) => {
     setSelectedIdx(idx);
@@ -68,41 +109,23 @@ const Gallery: React.FC = () => {
   }, [selectedIdx]);
 
   return (
-    <section id="gallery" ref={sectionRef} className="py-20 bg-white">
+    <section id="gallery" className="py-24 bg-white overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className={`text-center mb-16 transition-all duration-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <h2 className="text-4xl font-cursive text-[#b04a5a] mb-2">Album Hình Cưới</h2>
-          <p className="text-gray-500 font-serif italic">Những khoảnh khắc hạnh phúc</p>
-          <div className="w-20 h-1 bg-[#c9a68a] mx-auto mt-4"></div>
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-cursive text-[#b04a5a] mb-2">Album Hình Cưới</h2>
+          <p className="text-gray-500 font-serif italic tracking-widest uppercase text-[10px]">Our Wedding Gallery</p>
+          <div className="w-20 h-px bg-[#c9a68a] mx-auto mt-4"></div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {/* Grid: 2 cột trên mobile, 3 cột trên desktop */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
           {images.map((src, idx) => (
-            <div 
+            <GalleryItem 
               key={idx} 
-              className={`group relative overflow-hidden rounded-2xl aspect-[3/4] cursor-pointer shadow-md hover:shadow-2xl transition-all duration-500 transform ${isVisible ? 'opacity-100 translate-y-0 scale-100' : 'opacity-0 translate-y-10 scale-95'}`}
-              style={{ 
-                // Sử dụng idx * 500ms để mỗi tấm hình hiện ra cách nhau đúng 0.5 giây
-                transitionDelay: isVisible ? `${idx * 500}ms` : '0ms',
-                transitionDuration: '500ms'
-              }}
-              onClick={() => openLightbox(idx)}
-            >
-              <img 
-                src={src} 
-                alt={`Gallery ${idx}`} 
-                className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-              />
-              
-              {/* Overlay with a subtle gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
-                <div className="translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                  <span className="text-white border border-white/80 px-8 py-2.5 rounded-full uppercase text-xs tracking-[0.2em] font-medium backdrop-blur-[2px] hover:bg-white hover:text-[#b04a5a] transition-all">
-                    Xem ảnh
-                  </span>
-                </div>
-              </div>
-            </div>
+              src={src} 
+              idx={idx} 
+              onClick={() => openLightbox(idx)} 
+            />
           ))}
         </div>
       </div>
@@ -117,36 +140,36 @@ const Gallery: React.FC = () => {
             className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-[110]"
             onClick={closeLightbox}
           >
-            <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-8 h-8 md:w-10 md:h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
 
           <button 
-            className="absolute left-4 md:left-8 text-white/50 hover:text-white transition-all transform hover:scale-110 z-[110]"
+            className="absolute left-2 md:left-8 text-white/50 hover:text-white transition-all transform hover:scale-110 z-[110]"
             onClick={prevImage}
           >
-            <svg className="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-10 h-10 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
-          <div className="relative max-w-[90vw] max-h-[85vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+          <div className="relative max-w-[95vw] md:max-w-[90vw] max-h-[80vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <img 
               src={images[selectedIdx]} 
               alt="Full Size" 
-              className="max-w-full max-h-[85vh] object-contain shadow-2xl rounded-sm animate-zoomIn"
+              className="max-w-full max-h-[80vh] object-contain shadow-2xl rounded-lg animate-zoomIn"
             />
-            <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 text-white/60 font-serif tracking-widest text-sm">
+            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 text-white/60 font-serif tracking-widest text-xs">
               {selectedIdx + 1} / {images.length}
             </div>
           </div>
 
           <button 
-            className="absolute right-4 md:right-8 text-white/50 hover:text-white transition-all transform hover:scale-110 z-[110]"
+            className="absolute right-2 md:right-8 text-white/50 hover:text-white transition-all transform hover:scale-110 z-[110]"
             onClick={nextImage}
           >
-            <svg className="w-12 h-12 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-10 h-10 md:w-16 md:h-16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9 5l7 7-7 7" />
             </svg>
           </button>
